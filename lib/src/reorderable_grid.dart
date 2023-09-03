@@ -516,7 +516,6 @@ class SliverReorderableGridState extends State<SliverReorderableGrid>
     item.dragging = true;
     item.rebuild();
 
-    widget.onReorderStarted?.call();
     _insertIndex = item.index;
 
     _dragInfo = _DragInfo(
@@ -535,6 +534,8 @@ class SliverReorderableGridState extends State<SliverReorderableGrid>
     assert(_overlayEntry == null);
     _overlayEntry = OverlayEntry(builder: _dragInfo!.createProxy);
     overlay.insert(_overlayEntry!);
+
+    widget.onReorderStarted?.call();
 
     for (final _ReorderableItemState childItem in _items.values) {
       if (childItem == item || !childItem.mounted) continue;
