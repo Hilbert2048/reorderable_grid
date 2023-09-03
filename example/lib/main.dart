@@ -11,6 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isEditing = false;
   /// create a new list of data
   final items = List<int>.generate(40, (index) => index);
 
@@ -31,7 +32,14 @@ class _MyAppState extends State<MyApp> {
         body: ReorderableGridView.extent(
           maxCrossAxisExtent: 150,
           onReorder: _onReorder,
+          onReorderStarted: (){
+            print('Reorder started');
+          },
           childAspectRatio: 1,
+          proxyDecorator: (widget, index, animation) {
+            final scale = Tween<double>(begin: 1, end: 1.1).animate(animation);
+            return ScaleTransition(scale: scale, child: widget);
+          },
           children: items.map((item) {
             /// map every list entry to a widget and assure every child has a
             /// unique key

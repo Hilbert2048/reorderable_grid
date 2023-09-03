@@ -38,6 +38,7 @@ class ReorderableGrid extends StatefulWidget {
     required this.itemCount,
     required this.onReorder,
     required this.gridDelegate,
+    this.onReorderStarted,
     this.proxyDecorator,
     this.padding,
     this.scrollDirection = Axis.vertical,
@@ -73,6 +74,8 @@ class ReorderableGrid extends StatefulWidget {
 
   /// {@macro flutter.widgets.reorderable_list.onReorder}
   final ReorderCallback onReorder;
+
+  final VoidCallback? onReorderStarted;
 
   /// {@macro flutter.widgets.reorderable_list.proxyDecorator}
   final ReorderItemProxyDecorator? proxyDecorator;
@@ -262,6 +265,7 @@ class ReorderableGridState extends State<ReorderableGrid> {
             itemBuilder: widget.itemBuilder,
             itemCount: widget.itemCount,
             onReorder: widget.onReorder,
+            onReorderStarted: widget.onReorderStarted,
             proxyDecorator: widget.proxyDecorator,
             reverse: widget.reverse,
             autoScroll: widget.autoScroll ??
@@ -305,6 +309,7 @@ class SliverReorderableGrid extends StatefulWidget {
     required this.itemCount,
     required this.onReorder,
     required this.gridDelegate,
+    this.onReorderStarted,
     this.reverse = false,
     this.proxyDecorator,
     this.autoScroll = true,
@@ -320,6 +325,8 @@ class SliverReorderableGrid extends StatefulWidget {
 
   /// {@macro flutter.widgets.reorderable_list.onReorder}
   final ReorderCallback onReorder;
+
+  final VoidCallback? onReorderStarted;
 
   /// {@macro flutter.widgets.reorderable_list.proxyDecorator}
   final ReorderItemProxyDecorator? proxyDecorator;
@@ -463,6 +470,7 @@ class SliverReorderableGridState extends State<SliverReorderableGrid>
       if (_dragInfo != null) {
         cancelReorder();
       }
+      widget.onReorderStarted?.call();
       if (_items.containsKey(index)) {
         _dragIndex = index;
         _recognizer = recognizer

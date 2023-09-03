@@ -245,6 +245,7 @@ class ReorderableGridView extends StatefulWidget {
     this.padding,
     required this.gridDelegate,
     required this.onReorder,
+    this.onReorderStarted,
     this.cacheExtent,
     List<Widget> children = const <Widget>[],
     this.semanticChildCount,
@@ -295,6 +296,7 @@ class ReorderableGridView extends StatefulWidget {
     required this.itemBuilder,
     required this.itemCount,
     required this.onReorder,
+    this.onReorderStarted,
     this.cacheExtent,
     this.semanticChildCount,
     this.dragStartBehavior = DragStartBehavior.start,
@@ -332,6 +334,7 @@ class ReorderableGridView extends StatefulWidget {
     this.padding,
     required int crossAxisCount,
     required this.onReorder,
+    this.onReorderStarted,
     double mainAxisSpacing = 0.0,
     double crossAxisSpacing = 0.0,
     double childAspectRatio = 1.0,
@@ -384,6 +387,7 @@ class ReorderableGridView extends StatefulWidget {
     this.padding,
     required double maxCrossAxisExtent,
     required this.onReorder,
+    this.onReorderStarted,
     double mainAxisSpacing = 0.0,
     double crossAxisSpacing = 0.0,
     double childAspectRatio = 1.0,
@@ -470,6 +474,8 @@ class ReorderableGridView extends StatefulWidget {
 
   /// {@macro flutter.widgets.reorderable_list.onReorder}
   final ReorderCallback onReorder;
+
+  final VoidCallback? onReorderStarted;
 
   /// {@macro flutter.widgets.reorderable_list.proxyDecorator}
   final ReorderItemProxyDecorator? proxyDecorator;
@@ -625,6 +631,7 @@ class ReorderableGridViewState extends State<ReorderableGridView> {
             gridDelegate: widget.gridDelegate,
             itemCount: widget.itemCount,
             onReorder: widget.onReorder,
+            onReorderStarted: widget.onReorderStarted,
             proxyDecorator: widget.proxyDecorator ?? _proxyDecorator,
             autoScroll: widget.autoScroll ??
                 widget.physics is! NeverScrollableScrollPhysics,
