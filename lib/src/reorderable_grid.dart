@@ -470,7 +470,6 @@ class SliverReorderableGridState extends State<SliverReorderableGrid>
       if (_dragInfo != null) {
         cancelReorder();
       }
-      widget.onReorderStarted?.call();
       if (_items.containsKey(index)) {
         _dragIndex = index;
         _recognizer = recognizer
@@ -513,6 +512,8 @@ class SliverReorderableGridState extends State<SliverReorderableGrid>
 
   Drag? _dragStart(Offset position) {
     assert(_dragInfo == null);
+
+    widget.onReorderStarted?.call();
 
     final _ReorderableItemState item = _items[_dragIndex!]!;
     item.dragging = true;
